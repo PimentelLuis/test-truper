@@ -1,0 +1,84 @@
+<form [formGroup]="searchPokemonForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+
+        <label for="nameInput" class="form-label">Name: </label>
+        <input id="nameInput" type="text" formControlName="name" placeholder="charizard">
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+
+</form>
+
+@if (pokemonSeek) {
+    <div class="card" style="width: 18rem;">
+    <img [src]="pokemonSeek.img" class="card-img-top" alt="{{ pokemonSeek.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ pokemonSeek.name }}</h5>
+        <p class="card-text">Height: {{ pokemonSeek.height }} | Weight: {{ pokemonSeek.weight }}</p>
+       @for (item of pokemonSeek.stats; track $index) {
+            <p class="card-text">{{ item.stat.name }}: {{ item.base_stat }}</p>
+       }
+    </div>
+    </div>
+}
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">
+        <input type="checkbox"/>
+        Show Selected Only
+      </th>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Detalle</th>
+    </tr>
+  </thead>
+  <tbody>
+        @for (pokemon of pokemonList; track pokemon.id) {
+
+            <tr>
+                <th scope="row">{{ pokemon.id }}</th>
+                <th scope="col">
+                    <input type="checkbox" (change)="onPokemonSelect(pokemon.id)" />
+                </th>
+                <td>{{ pokemon.name }}</td>
+                <td><img [src]="pokemon.img" alt="{{ pokemon.name }}" /></td>
+                <td>Detalle</td>
+            </tr>
+
+        }
+    
+  </tbody>
+</table>
+
+
+@if (pokemonBaseDetail) {
+    <div class="card" style="width: 18rem;">
+    <img [src]="pokemonBaseDetail.img" class="card-img-top" alt="{{ pokemonBaseDetail.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ pokemonBaseDetail.name }}</h5>
+        <p class="card-text">Height: {{ pokemonBaseDetail.height }} | Weight: {{ pokemonBaseDetail.weight }}</p>
+       @for (item of pokemonBaseDetail.stats; track $index) {
+            <p class="card-text">{{ item.stat.name }}: {{ item.base_stat }}</p>
+       }
+    </div>
+    </div>
+}
+
+@if (pokemonComparationDetail) {
+    <div class="card" style="width: 18rem;">
+    <img [src]="pokemonComparationDetail.img" class="card-img-top" alt="{{ pokemonComparationDetail.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ pokemonComparationDetail.name }}</h5>
+        <p class="card-text">Height: {{ pokemonComparationDetail.height }} | Weight: {{ pokemonComparationDetail.weight }}</p>
+       @for (item of pokemonComparationDetail.stats; track $index) {
+            <p class="card-text">{{ item.stat.name }}: {{ item.base_stat }}</p>
+       }
+    </div>
+    </div>
+}
